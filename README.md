@@ -1,6 +1,6 @@
 # RAG Lab
 
-A production-oriented RAG pipeline, built and measured across six weekends,
+A production-oriented RAG pipeline, built and measured phase by phase,
 using three real SEC 10-K filings (Apple, Starbucks, JPMorgan Chase) as source data.
 
 Every claim below is backed by an eval set of 20 hand-written questions,
