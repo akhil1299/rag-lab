@@ -1,10 +1,8 @@
 # RAG Lab
 
-A production-oriented RAG pipeline, built and measured phase by phase,
-using three real SEC 10-K filings (Apple, Starbucks, JPMorgan Chase) as source data.
+A production-grade RAG pipeline built and measured phase by phase using 3 real SEC 10-K filings (Apple, Starbucks, JPMorgan Chase) as source data.
 
-Every claim below is backed by an eval set of 20 hand-written questions,
-each mapped to the exact document and page that answers it.
+Every claim below is backed by an eval set of 20 hand-written questions, each mapped to the exact doc and page that answers it.
 
 ## Results
 
@@ -14,11 +12,11 @@ each mapped to the exact document and page that answers it.
 
 ## What's here so far
 
-- `ingestion/db.py` — Supabase/Postgres connection
-- `ingestion/schema.py` — creates the `chunks` table (id, doc_name, page_number, content, embedding)
-- `ingestion/load_pdfs.py` — reads the three 10-Ks page-by-page, inserts 701 chunks
-- `eval/questions.json` — 20 hand-verified questions against the three filings
-- `eval/evaluate.py` — measures recall@5 using Postgres full-text search
+- `ingestion/db.py` --> Supabase/Postgres connection
+- `ingestion/schema.py` --> creates the `chunks` table (id, doc_name, page_number, content, embedding)
+- `ingestion/load_pdfs.py` --> reads the 3 10-Ks page-by-page, inserts 701 chunks
+- `eval/questions.json` --> 20 hand-verified questions against the three filings
+- `eval/evaluate.py` --> measures recall@5 using Postgres full-text search
 
 ## Baseline: why 0.30?
 
