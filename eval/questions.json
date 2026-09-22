@@ -1,0 +1,142 @@
+[
+  {
+    "id": "q001",
+    "question": "How much did the European Commission fine Apple in the Article 5(4) DMA Investigation?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 26,
+    "expected_text_contains": "€500 million"
+  },
+  {
+    "id": "q002",
+    "question": "Approximately how many full-time equivalent employees did Apple have as of September 27, 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 8,
+    "expected_text_contains": "166,000"
+  },
+  {
+    "id": "q003",
+    "question": "What were Apple's total net sales for fiscal year 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 31,
+    "expected_text_contains": "416,161"
+  },
+  {
+    "id": "q004",
+    "question": "What was Apple's net income for fiscal year 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 41,
+    "expected_text_contains": "112,010"
+  },
+  {
+    "id": "q005",
+    "question": "How much did Apple spend on research and development in fiscal year 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 33,
+    "expected_text_contains": "34,550"
+  },
+  {
+    "id": "q006",
+    "question": "What were Apple's iPhone net sales in fiscal year 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 32,
+    "expected_text_contains": "209,586"
+  },
+  {
+    "id": "q007",
+    "question": "What were Apple's Services net sales in fiscal year 2025?",
+    "expected_doc": "aapl-20250927.pdf",
+    "expected_page": 32,
+    "expected_text_contains": "109,158"
+  },
+  {
+    "id": "q008",
+    "question": "Approximately how many people did Starbucks employ worldwide as of September 28, 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 10,
+    "expected_text_contains": "381,000"
+  },
+  {
+    "id": "q009",
+    "question": "What was Starbucks' diluted earnings per share for fiscal year 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 117,
+    "expected_text_contains": "1.63"
+  },
+  {
+    "id": "q010",
+    "question": "What were Starbucks' total net revenues in fiscal year 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 48,
+    "expected_text_contains": "37.2 billion"
+  },
+  {
+    "id": "q011",
+    "question": "How many total stores did Starbucks have as of September 28, 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 12,
+    "expected_text_contains": "40,990"
+  },
+  {
+    "id": "q012",
+    "question": "What were Starbucks' North America segment total net revenues in fiscal year 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 51,
+    "expected_text_contains": "27,373.1"
+  },
+  {
+    "id": "q013",
+    "question": "What were Starbucks' International segment total net revenues in fiscal year 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 52,
+    "expected_text_contains": "7,819.9"
+  },
+  {
+    "id": "q014",
+    "question": "What did Starbucks' consolidated operating income decrease to in fiscal year 2025?",
+    "expected_doc": "sbux-20250928.pdf",
+    "expected_page": 48,
+    "expected_text_contains": "2.9 billion"
+  },
+  {
+    "id": "q015",
+    "question": "What were JPMorganChase's total assets as of the end of fiscal year 2025?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 81,
+    "expected_text_contains": "4,424,900"
+  },
+  {
+    "id": "q016",
+    "question": "How many employees did JPMorganChase have globally as of December 31, 2025?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 15,
+    "expected_text_contains": "318,512"
+  },
+  {
+    "id": "q017",
+    "question": "What was JPMorganChase's net income for fiscal year 2025?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 85,
+    "expected_text_contains": "57,048"
+  },
+  {
+    "id": "q018",
+    "question": "What was the net income of JPMorganChase's Consumer & Community Banking segment in 2025?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 108,
+    "expected_text_contains": "18.2 billion"
+  },
+  {
+    "id": "q019",
+    "question": "Where is JPMorganChase's headquarters located?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 65,
+    "expected_text_contains": "270 Park Avenue"
+  },
+  {
+    "id": "q020",
+    "question": "What was the net income of JPMorganChase's Commercial & Investment Bank segment in 2025?",
+    "expected_doc": "jpm-20251231.pdf",
+    "expected_page": 113,
+    "expected_text_contains": "27.8 billion"
+  }
+]
