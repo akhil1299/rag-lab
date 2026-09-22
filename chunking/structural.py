@@ -1,6 +1,8 @@
-# Splits every page-level chunk on paragraph boundaries (blank lines)
-# instead of arbitrary character counts, so chunks respect the text's
-# natural structure.
+# Splits every page-level chunk into sentence-grouped chunks, targeting
+# ~500 characters per chunk. Sentences are never cut in half — this
+# replaces an earlier attempt that tried splitting on "\n\n" (blank
+# lines), which failed because pypdf's extract_text() only produces
+# single newlines, never double ones.
 
 from ingestion.db import get_connection
 
@@ -13,17 +15,30 @@ def fetch_page_chunks(cursor):
     return cursor.fetchall()
 
 
-def split_structural(text):
+def split_structural(text, target_size=500):
     """
-    Splits text into paragraph-based chunks, using blank lines as boundaries.
-    Empty or whitespace-only pieces are dropped.
+    Splits text into sentences, then groups consecutive sentences
+    together until each chunk reaches roughly target_size characters.
+    Never cuts a sentence in half.
     """
-    raw_pieces = text.split("\n\n")
+    sentences = text.split(". ")
     chunks = []
-    for i in raw_pieces:
-        cleaned = i.strip()
-        if cleaned:
-            chunks.append(cleaned)
+    current = ""
+
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if not sentence:
+            continue
+
+        if len(current) + len(sentence) <= target_size:
+            current += sentence + ". "
+        else:
+            chunks.append(current.strip())
+            current = sentence + ". "
+
+    if current.strip():
+        chunks.append(current.strip())
+
     return chunks
 
 
