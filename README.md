@@ -12,6 +12,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 | fixed (500 chars)                  | 0.10     |
 | overlap (500 chars, 100 overlap)   | 0.10     |
 | structural (sentence-grouped)      | 0.15     |
+| vector search (OpenAI embeddings)  | 0.60     |
 
 ## What's here so far
 
@@ -26,6 +27,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 - `chunking/compare.py` --> re-runs recall@5 for each chunking strategy, side by side
 - `retrieval/embed.py` --> embeds all 701 page-level chunks using OpenAI's text-embedding-3-small (1536-dim vectors)
 - `retrieval/negation_test.py` --> measures cosine similarity between a statement and its negation
+- `retrieval/vector.py` --> pgvector cosine-distance search (`<=>`), measures recall@5 against the same 701 page-level chunks
 
 ## Baseline: why 0.30?
 
@@ -37,6 +39,19 @@ with no literal word "fiscal" close to the number. Full-text search has no
 way to know these mean the same thing.
 
 This is the exact gap Phase 3 (vector embeddings + hybrid search) exists to close.
+
+## Vector search: 0.30 → 0.60
+
+Switching from Postgres full-text search to OpenAI embeddings + pgvector
+cosine-distance search (`<=>`), on the exact same 701 page-level chunks
+and the same 20 questions, took recall@5 from 0.30 to 0.60 — double the
+baseline. Full-text search requires literal word overlap between the
+question and the chunk; embeddings capture semantic meaning instead,
+so a question phrased differently from the filing's own wording can
+still find the right chunk. Chunking strategy was deliberately held
+constant (`page`) across both measurements, so this improvement is
+attributable to the retrieval method, not a side effect of also
+changing chunk size.
 
 ## What embeddings cannot do
 
@@ -81,4 +96,5 @@ python -m chunking.structural   # inserts structural (sentence-grouped) chunks
 python -m chunking.compare      # prints recall@5 per chunking strategy
 python -m retrieval.embed       # embeds all 701 page-level chunks
 python -m retrieval.negation_test  # prints cosine similarity for negation test
+python -m retrieval.vector       # prints vector search recall@5
 ```
