@@ -24,6 +24,8 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 - `chunking/overlap.py` --> same, with 100-character overlap between chunks
 - `chunking/structural.py` --> groups sentences into ~500-character chunks, never cutting a sentence in half
 - `chunking/compare.py` --> re-runs recall@5 for each chunking strategy, side by side
+- `retrieval/embed.py` --> embeds all 701 page-level chunks using OpenAI's text-embedding-3-small (1536-dim vectors)
+- `retrieval/negation_test.py` --> measures cosine similarity between a statement and its negation
 
 ## Baseline: why 0.30?
 
@@ -35,6 +37,17 @@ with no literal word "fiscal" close to the number. Full-text search has no
 way to know these mean the same thing.
 
 This is the exact gap Phase 3 (vector embeddings + hybrid search) exists to close.
+
+## What embeddings cannot do
+
+"This account is approved for options trading" vs.
+"This account is NOT approved for options trading"
+→ cosine similarity: **0.88**
+
+Opposite meaning, nearly identical vectors. Embeddings encode topical
+similarity, not logical negation — this is exactly why hybrid search
+and explicit source-quoting are required in compliance-sensitive
+contexts, not optional nice-to-haves.
 
 ## What didn't work
 
@@ -66,4 +79,6 @@ python -m chunking.fixed        # inserts fixed-size chunks
 python -m chunking.overlap      # inserts overlapping chunks
 python -m chunking.structural   # inserts structural (sentence-grouped) chunks
 python -m chunking.compare      # prints recall@5 per chunking strategy
+python -m retrieval.embed       # embeds all 701 page-level chunks
+python -m retrieval.negation_test  # prints cosine similarity for negation test
 ```
