@@ -13,6 +13,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 | overlap (500 chars, 100 overlap)   | 0.10     |
 | structural (sentence-grouped)      | 0.15     |
 | vector search (OpenAI embeddings)  | 0.60     |
+| BM25 keyword search                | 0.60     |
 
 ## What's here so far
 
@@ -28,6 +29,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 - `retrieval/embed.py` --> embeds all 701 page-level chunks using OpenAI's text-embedding-3-small (1536-dim vectors)
 - `retrieval/negation_test.py` --> measures cosine similarity between a statement and its negation
 - `retrieval/vector.py` --> pgvector cosine-distance search (`<=>`), measures recall@5 against the same 701 page-level chunks
+- `retrieval/keyword.py` --> BM25 keyword search over the same 701 page-level chunks
 
 ## Baseline: why 0.30?
 
@@ -52,6 +54,24 @@ still find the right chunk. Chunking strategy was deliberately held
 constant (`page`) across both measurements, so this improvement is
 attributable to the retrieval method, not a side effect of also
 changing chunk size.
+
+## BM25 keyword search: 0.60, tied with vector search
+
+Running BM25 — a smarter, frequency-weighted keyword search than
+Postgres full-text search, which scores rare/distinctive words more
+heavily than common ones — against the same 701 page-level chunks and
+the same 20 questions gave recall@5 of 0.60 (12/20), exactly matching
+vector search's result on this eval set.
+
+This isn't evidence the two methods are interchangeable — it's a gap
+in the eval set. None of the current 20 questions test exact
+identifiers (account numbers, section codes, specific dollar figures),
+which is precisely where keyword and vector search are expected to
+diverge: vector search should struggle on exact strings it can only
+match "semantically," while BM25 should excel at them. The current
+eval set isn't hard enough yet to tell the two methods apart —
+additional exact-identifier questions are needed before hybrid search
+(combining both) can be meaningfully measured.
 
 ## What embeddings cannot do
 
@@ -97,4 +117,5 @@ python -m chunking.compare      # prints recall@5 per chunking strategy
 python -m retrieval.embed       # embeds all 701 page-level chunks
 python -m retrieval.negation_test  # prints cosine similarity for negation test
 python -m retrieval.vector       # prints vector search recall@5
+python -m retrieval.keyword      # prints BM25 recall@5
 ```
