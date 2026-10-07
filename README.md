@@ -14,6 +14,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 | structural (sentence-grouped)      | 0.15     |
 | vector search (OpenAI embeddings)  | 0.60     |
 | BM25 keyword search                | 0.60     |
+| hybrid (vector + BM25, RRF)        | 0.70     |
 
 ## What's here so far
 
@@ -30,6 +31,7 @@ Every claim below is backed by an eval set of 20 hand-written questions, each ma
 - `retrieval/negation_test.py` --> measures cosine similarity between a statement and its negation
 - `retrieval/vector.py` --> pgvector cosine-distance search (`<=>`), measures recall@5 against the same 701 page-level chunks
 - `retrieval/keyword.py` --> BM25 keyword search over the same 701 page-level chunks
+- `retrieval/hybrid.py` --> merges vector and BM25 rankings with Reciprocal Rank Fusion (RRF_K=60, top 20 from each method), measures recall@5
 
 ## Baseline: why 0.30?
 
@@ -72,6 +74,19 @@ match "semantically," while BM25 should excel at them. The current
 eval set isn't hard enough yet to tell the two methods apart —
 additional exact-identifier questions are needed before hybrid search
 (combining both) can be meaningfully measured.
+
+## Hybrid search (RRF): 0.70
+
+Vector search and BM25 each scored 0.60 (12/20) on their own. Merging
+their rankings with Reciprocal Rank Fusion (each page gets
+1 / (60 + rank) points from each list it appears in, using the top 20
+candidates from each method) scored 0.70 (14/20), a net gain of 2
+questions. Ranks are merged instead of raw scores because cosine
+distance and BM25 scores are on different scales and point in opposite
+directions (smaller is better vs. bigger is better).
+
+Caveat: 2 questions out of 20 is a small sample. The exact-identifier
+questions (next) are the real test of where the two methods disagree.
 
 ## What embeddings cannot do
 
@@ -118,4 +133,5 @@ python -m retrieval.embed       # embeds all 701 page-level chunks
 python -m retrieval.negation_test  # prints cosine similarity for negation test
 python -m retrieval.vector       # prints vector search recall@5
 python -m retrieval.keyword      # prints BM25 recall@5
+python -m retrieval.hybrid       # prints hybrid recall@5
 ```
