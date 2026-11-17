@@ -28,9 +28,7 @@ def bm25_search(bm25, corpus_metadata, question_text, k=5):
     """
     Scores question_text against every chunk in the BM25 index, and
     returns the top k (doc_name, page_number) results, best match first.
-    TODO: write this yourself — see guidance below.
     """
-    # TODO
     tokenized_question = tokenize(question_text)
     scores = bm25.get_scores(tokenized_question)
     scored_chunks = list(zip(scores, corpus_metadata))

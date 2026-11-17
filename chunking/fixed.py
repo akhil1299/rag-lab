@@ -32,8 +32,6 @@ if __name__ == "__main__":
     pages = fetch_page_chunks(cursor)
     total_inserted = 0
 
-    # TODO: loop over pages, split each page's content, insert each
-    # piece as a new row with strategy='fixed'. See guidance below.
     for doc_name, page_number, content in pages:
         pieces = split_fixed(content)
         for piece in pieces:

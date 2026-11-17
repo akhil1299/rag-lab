@@ -119,9 +119,14 @@ contexts, not optional nice-to-haves.
   a real extracted page, then switched to sentence-boundary grouping
   instead.
 
+## Source filings
+
+The three 10-K PDFs live in `data/pdfs/` (see `data/DATA.md`). They are the exact files behind the recall@5 numbers above. Source: SEC EDGAR public filings.
+
 ## Running it
 
 ```powershell
+python -m pip install -r requirements.txt
 python -m ingestion.schema      # creates the chunks table
 python -m ingestion.load_pdfs   # loads the 3 10-Ks (701 chunks)
 python -m eval.evaluate         # prints baseline recall@5

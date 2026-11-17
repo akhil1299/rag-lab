@@ -25,9 +25,5 @@ def create_chunks_table():
 
 
 if __name__ == "__main__":
-    # TODO: call create_chunks_table() yourself
-    chunks = create_chunks_table()
-    
-    pass
-
+    create_chunks_table()
 
